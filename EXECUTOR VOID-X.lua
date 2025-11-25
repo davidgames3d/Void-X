@@ -1,0 +1,113 @@
+-- GUI ORIGINAL + BOTÃO TOGGLE (mobile + pc)
+
+local LMG2L = {}
+
+-- ScreenGui
+LMG2L["ScreenGui_1"] = Instance.new("ScreenGui", game.CoreGui)
+LMG2L["ScreenGui_1"].Name = "VOIDX_GUI"
+LMG2L["ScreenGui_1"].ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+-- BOTÃO TOGGLE
+local Toggle = Instance.new("ImageButton", LMG2L["ScreenGui_1"])
+Toggle.Name = "Toggle"
+Toggle.Size = UDim2.new(0, 45, 0, 45)
+Toggle.Position = UDim2.new(0.02, 0, 0.4, 0)
+Toggle.BackgroundTransparency = 1
+Toggle.Image = "rbxassetid://3926307971" -- Ícone (pode trocar)
+Toggle.ImageRectOffset = Vector2.new(4, 836)
+Toggle.ImageRectSize = Vector2.new(36, 36)
+
+-- Frame principal (seu original)
+LMG2L["Frame_2"] = Instance.new("Frame", LMG2L["ScreenGui_1"])
+LMG2L["Frame_2"].BorderSizePixel = 4
+LMG2L["Frame_2"].BackgroundColor3 = Color3.fromRGB(54, 54, 54)
+LMG2L["Frame_2"].AutomaticSize = Enum.AutomaticSize.XY
+LMG2L["Frame_2"].Size = UDim2.new(0.75863, 0, 1.00169, 0)
+LMG2L["Frame_2"].Position = UDim2.new(0.10728, 0, -0.07285, 0)
+LMG2L["Frame_2"].BorderColor3 = Color3.fromRGB(10, 167, 170)
+LMG2L["Frame_2"].BackgroundTransparency = 0.3
+
+Instance.new("UICorner", LMG2L["Frame_2"]).CornerRadius = UDim.new(0, 20)
+
+-- Seus outros objetos:
+-- (copiei exatamente igual ao seu, sem mudar nada)
+LMG2L["TextButton_4"] = Instance.new("TextButton", LMG2L["Frame_2"])
+LMG2L["TextButton_4"].TextWrapped = true
+LMG2L["TextButton_4"].BorderSizePixel = 0
+LMG2L["TextButton_4"].TextScaled = true
+LMG2L["TextButton_4"].BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+LMG2L["TextButton_4"].FontFace = Font.new([[rbxasset://fonts/families/Roboto.json]])
+LMG2L["TextButton_4"].Size = UDim2.new(0.27609, 0, 0.09091, 0)
+LMG2L["TextButton_4"].Text = "execute"
+LMG2L["TextButton_4"].Position = UDim2.new(0.02357, 0, 0.88485, 0)
+Instance.new("UICorner", LMG2L["TextButton_4"])
+
+LMG2L["TextLabel_6"] = Instance.new("TextLabel", LMG2L["Frame_2"])
+LMG2L["TextLabel_6"].TextWrapped = true
+LMG2L["TextLabel_6"].TextScaled = true
+LMG2L["TextLabel_6"].TextColor3 = Color3.fromRGB(231, 0, 6)
+LMG2L["TextLabel_6"].Size = UDim2.new(0.21886, 0, 0.14545, 0)
+LMG2L["TextLabel_6"].Text = "VOID-X"
+LMG2L["TextLabel_6"].BackgroundTransparency = 1
+LMG2L["TextLabel_6"].Position = UDim2.new(0, 0, -0.01212, 0)
+
+LMG2L["TextLabel_7"] = Instance.new("TextLabel", LMG2L["TextLabel_6"])
+LMG2L["TextLabel_7"].TextScaled = true
+LMG2L["TextLabel_7"].TextColor3 = Color3.fromRGB(231, 226, 225)
+LMG2L["TextLabel_7"].Size = UDim2.new(1.18462, 0, 0.54167, 0)
+LMG2L["TextLabel_7"].Text = "by davidgames3d"
+LMG2L["TextLabel_7"].BackgroundTransparency = 1
+LMG2L["TextLabel_7"].Position = UDim2.new(0.93846, 0, 0.29167, 0)
+
+local grad = Instance.new("UIGradient", LMG2L["Frame_2"])
+grad.Rotation = 99
+grad.Color = ColorSequence.new({
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 0, 0)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 207, 255))
+})
+
+-- TextBox
+LMG2L["textbox_9"] = Instance.new("TextBox", LMG2L["Frame_2"])
+LMG2L["textbox_9"].Text = "SCRIPR EXECUTOR COLE SEU SCRIPT AQUI"
+LMG2L["textbox_9"].TextColor3 = Color3.fromRGB(244, 0, 0)
+LMG2L["textbox_9"].Size = UDim2.new(0.95623, 0, 0.72121, 0)
+LMG2L["textbox_9"].Position = UDim2.new(0.02357, 0, 0.14545, 0)
+LMG2L["textbox_9"].FontFace = Font.new([[rbxasset://fonts/families/Zekton.json]])
+Instance.new("UICorner", LMG2L["textbox_9"])
+
+-- AQUI: ADICIONANDO O SCRIPT DO BOTÃO EXECUTAR
+LMG2L["TextButton_4"].MouseButton1Click:Connect(function()
+    local code = LMG2L["textbox_9"].Text
+    if code ~= "" then
+        loadstring(code)()
+    end
+end)
+
+-- AQUI: SISTEMA DE ABRIR / FECHAR GUI
+local aberto = true
+
+Toggle.MouseButton1Click:Connect(function()
+    aberto = not aberto
+
+    if aberto then
+        LMG2L["Frame_2"].Visible = true
+        LMG2L["Frame_2"]:TweenSize(
+            UDim2.new(0.75863, 0, 1.00169, 0),
+            Enum.EasingDirection.Out,
+            Enum.EasingStyle.Quad,
+            0.25,
+            true
+        )
+    else
+        LMG2L["Frame_2"]:TweenSize(
+            UDim2.new(0, 0, 0, 0),
+            Enum.EasingDirection.In,
+            Enum.EasingStyle.Quad,
+            0.25,
+            true,
+            function()
+                LMG2L["Frame_2"].Visible = false
+            end
+        )
+    end
+end)
